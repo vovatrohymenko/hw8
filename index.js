@@ -2,18 +2,6 @@ const input = document.getElementById("bookmarkInput");
 const addBtn = document.getElementById("addBookmarkBtn");
 const list = document.getElementById("bookmarkList");
 
-const savedBookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
-savedBookmarks.forEach((url) => {
-  list.append(createItem(url));
-});
-
-const saveBookmarks = () => {
-  const urls = Array.from(list.querySelectorAll("li a")).map(
-    (link) => link.href
-  );
-  localStorage.setItem("bookmarks", JSON.stringify(urls));
-};
-
 const createItem = (url) => {
   const li = document.createElement("li");
 
@@ -46,6 +34,18 @@ const createItem = (url) => {
   li.append(link, editBtn, delBtn);
   return li;
 };
+
+const saveBookmarks = () => {
+  const urls = Array.from(list.querySelectorAll("li a")).map(
+    (link) => link.href
+  );
+  localStorage.setItem("bookmarks", JSON.stringify(urls));
+};
+
+const savedBookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
+savedBookmarks.forEach((url) => {
+  list.append(createItem(url));
+});
 
 addBtn.onclick = () => {
   const url = input.value.trim();
